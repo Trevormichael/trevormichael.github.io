@@ -4,7 +4,7 @@ const current = pathname.slice(1); // remove the first "/"
 ---
 
 <div class="nav-container">
-    <h1>Trevor Michael C.</h1>
+    <h1><a href="/">Trevor Michael C.</a></h1>
     <p>Developer, Designer</p>
     <ul role="list">
         <li><a class={current == "about" ? "active" : ""} href="/about">ABOUT</a></li>
@@ -46,9 +46,11 @@ const current = pathname.slice(1); // remove the first "/"
         padding: 0px 0px;
         display: block;
         text-align: left;
+        transition: transform 200ms, font-weight 200ms;
 	}
     li > a:hover {
         font-weight: 400;
+        transform: translateX(4px);
     }
     a.active {
         font-weight: 600;
