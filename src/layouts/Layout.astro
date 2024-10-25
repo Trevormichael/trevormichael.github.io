@@ -17,7 +17,7 @@ const { title } = Astro.props;
 		const x = 1 - e.clientX / window.innerWidth;
 		const y = 1 - e.clientY / window.innerHeight;
 
-		const depth = parseFloat(noise.dataset.depth) || 0.5; // Adjust depth as needed
+		const depth = parseFloat(noise.dataset.depth ?? "") || 0.5; // Adjust depth as needed
 
 		const parallaxStrength = 0;
     	const translateX = (x - 0.5) * depth * parallaxStrength; // Adjust 100 for desired strength
@@ -85,12 +85,15 @@ const { title } = Astro.props;
   			body {
     			flex-direction: column; /* Stack vertically on smaller screens */
   			}
+			.content {
+				margin-top: 32px;
+			}
 		}
 		.content {
 			flex-grow: 1;
 			flex-shrink: 1;
 			min-width: 300px;
-			padding-right: 20px;
+			padding-right: 18px;
 		}
 		.noise {
 			position: fixed;

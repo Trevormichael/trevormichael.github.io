@@ -1,0 +1,18 @@
+---
+import Prose from './Prose.astro';
+import type { CollectionEntry } from 'astro:content';
+interface Props {
+  project: CollectionEntry<'project'>;
+}
+
+// `post` will match your 'blog' collection schema type
+const { project } = Astro.props;
+const { Content } = await project.render();
+---
+<div class="mb-4 p-2 border-2 border-white">
+<h1 class="text-xl p-px mb-1"><a href={`/project/${project.slug}/`}>{project.data.title}</a></h1>
+{project.data.tech.map(t => (
+    <span class="bg-opacity-30 text-sm bg-indigo-500 text-white mr-2 py-px px-2 rounded-full">{t}</span>
+))}
+{project.data.desc && <p class="text-sm p-1 mt-2">{project.data.desc}</p>}
+</div>
