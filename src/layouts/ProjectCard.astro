@@ -11,13 +11,13 @@ const { Content } = await project.render();
 ---
 <a class="flex flex-grow flex-shrink" href={`/project/${project.slug}/`}>
     <div class="flex-grow w-64 mb-4 p-4 
-    border border-white border-opacity-20 
-    bg-indigo-400 bg-opacity-10 overflow-hidden
-    hover:bg-opacity-20 rounded-xl">
+    bg-amber-800 bg-opacity-5 overflow-hidden
+    hover:translate-y-0.5 transition-all duration-500
+    hover:shadow-xl shadow-slate-800/20 rounded-xl">
     <h1 class="text-xl p-px font-bold mb-1">{project.data.title}</h1>
     <div class="flex flex-row flex-wrap gap-1">
     {project.data.tech.map(t => (
-        <span class="bg-opacity-40 text-xs font-mono text-sm bg-orange-800 text-white py-px px-2 rounded-full">{t}</span>
+        <span class="text-xs font-mono text-sm bg-blue-800/70 text-white py-px px-2 rounded-full">{t}</span>
     ))}
     </div>
     {project.data.desc && <p class="text-sm p-1 mt-2">{project.data.desc}</p>}

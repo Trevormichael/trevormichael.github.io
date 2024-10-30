@@ -33,59 +33,28 @@ const { title } = Astro.props;
 	});
 </script>
 
-<html lang="en" transition:animate="fade">
+<html class="bg-slate-900" lang="en" transition:animate="fade">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<ViewTransitions />
 	</head>
-	<body>
-		<Nav />
-		<div class="content">
-			<slot />
+	<body class="h-screen p-[16px]">
+		<div class="text-stone-700 py-6 px-10 top-0 h-[calc(100vh-2rem)] overflow-x-auto scroll-pt-4 md:flex md:justify-between md:gap-4">
+			<Nav />
+			<main class="mr-4 pb-10 md:w-2/3">
+				<slot />
+			</main>
+			<div class="noise" transition:persist="noise"></div>
 		</div>
-		<div class="noise" transition:persist></div>
 	</body><style is:global>
-		:root {
-			--surface: rgb(45, 45, 49);
-			--accent: 136, 58, 234;
-			--accent-light: 224, 204, 250;
-			--accent-dark: 49, 10, 101;
-			--accent-gradient: linear-gradient(
-				45deg,
-				rgb(var(--accent)),
-				rgb(var(--accent-light)) 30%,
-				white 60%
-			);
-		}
 		html {
-			background-color: #110630;
-			color: rgb(244, 244, 240);
 			font-family: "Inter Variable";
 			font-weight: 300;
-		}
-		body {
-			padding: calc(1em + 16px);
-			display: flex;
-			flex-direction: row;
-		}
-		@media (max-width: 768px) {
-  			body {
-    			flex-direction: column; /* Stack vertically on smaller screens */
-  			}
-			.content {
-				margin-top: 32px;
-			}
-		}
-		.content {
-			flex-grow: 1;
-			flex-shrink: 1;
-			min-width: 300px;
-			padding-right: 18px;
 		}
 		.noise {
 			position: fixed;
@@ -93,12 +62,11 @@ const { title } = Astro.props;
 			left: 16px;
 			background: linear-gradient(
 					var(--gradient-rot),
-					rgba(1, 23, 79, 0.4),
+					rgb(250, 242, 230),
 					transparent
 				),
-				linear-gradient(120deg, rgba(174, 7, 143, 0.2), transparent),
-				radial-gradient(at var(--gradient-x) var(--gradient-y), rgba(69, 119, 0, 0.2), rgba(0 0 200 / 10%)),
-				url("/noise.svg");
+				linear-gradient(120deg, rgb(203, 210, 255), transparent),
+				radial-gradient(at var(--gradient-x) var(--gradient-y), rgb(246, 255, 233), rgb(200, 200, 255));
 			width: calc(100vw - 32px);
 			height: calc(100vh - 32px);
 			background-size: cover;

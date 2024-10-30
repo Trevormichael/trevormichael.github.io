@@ -1,59 +1,66 @@
 ---
 const pathname = new URL(Astro.request.url).pathname;
 const current = pathname.slice(1); // remove the first "/"
+
+const navItems = [
+  { name: "About", path: "about" },
+  { name: "Skills", path: "skills" },
+  { name: "Projects", path: "projects" },
+  { name: "Contact", path: "contact" },
+];
 ---
 
-<div class="nav-container">
-    <h1><a href="/">Trevor Michael C.</a></h1>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const sections = document.querySelectorAll('h1[id]');
+        const navLinks = document.querySelectorAll('.toc-link');
+
+        const observerOptions = {
+            rootMargin: '200% 0px -90% 0px',
+            threshold: 0.1
+        };
+
+        const observerCallback = (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => {
+                        let href = link.getAttribute('href')
+                        if (href && href.slice(1) === entry.target.id) {
+                            link.classList.add('active');
+                        } else {
+                            link.classList.remove('active');
+                        }
+                    });
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    });
+</script>
+
+<header class="pr-24 mb-10 md:mb-0 md:w-1/3 md:min-w-1/3 md:sticky md:top-0">
+    <h1 class="text-xl font-bold text-stone-700"><a href="/">Trevor Michael C.</a></h1>
     <p>Developer, Designer</p>
-    <ul role="list">
-        <li><a class={current == "about" ? "active" : ""} href="/about">ABOUT</a></li>
-        <li><a class={current == "skills" ? "active" : ""} href="/skills">SKILLS</a></li>
-        <li><a class={current == "projects" ? "active" : ""} href="/projects">PROJECTS</a></li>
-        <li><a class={current == "contact" ? "active" : ""} href="/contact">CONTACT</a></li>
+    <p>Something else about me, blah blah blah lorem okasdj jasnd nbjsnd jdjb bjasd</p>
+    <ul class="mt-8 font-light hidden md:block" role="list">
+        {navItems.map((item) => (
+            <a class:list={["toc-link text-stone-700 text-md", current === item.path ? "" : ""]} href={`#${item.path}`}>
+                <li class="transition-all font-normal list-none py-1.5 my-1 hover:font-bold rounded-lg items-center">
+                    {item.name}
+                </li>
+            </a>
+        ))}
     </ul>
-</div>
+</header>
 
 <style>
-    .nav-container {
-        padding-right: 10vw;
-        min-width: 350px;
-    }
-	h1 {
-		font-size: 1.4rem;
-		font-weight: 800;
-		line-height: 1;
-		margin-bottom: 0;
-        text-shadow: 0px 0px 20px rgba(255, 255, 255, 0.1);
-	}
-	p {
-		margin-top: 8px;
-        font-weight: 200;
-	}
-	ul {
-		padding: 0px 10px;
-		margin: 0;
-		margin-top: 2em;
-        border-left: 1px solid rgba(255 255 255 / 30%);
-	}
-	li {
-		list-style-type: none;
-		padding: 6px 0px;
-        font-weight: 200;
-	}
-	a {
-        color: white;
-        text-decoration: none;
-        padding: 0px 0px;
-        display: block;
-        text-align: left;
-        transition: transform 200ms, font-weight 200ms;
-	}
-    li > a:hover {
-        font-weight: 400;
-        transform: translateX(4px);
-    }
-    a.active {
-        font-weight: 600;
+    .active > li {
+        transform: translateX(8px);
+        font-weight: bold;
     }
 </style>

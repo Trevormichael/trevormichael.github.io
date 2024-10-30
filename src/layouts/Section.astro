@@ -1,0 +1,7 @@
+---
+const { id, title } = Astro.props;
+---
+<div class="mb-10">
+    <h1 id={`${id}`} class="text-lg font-bold mb-3">{title}</h1>
+    <slot/>
+</div>
