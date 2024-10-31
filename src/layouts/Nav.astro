@@ -8,6 +8,8 @@ const navItems = [
   { name: "Projects", path: "projects" },
   { name: "Contact", path: "contact" },
 ];
+
+const { requireInfo } = Astro.props;
 ---
 
 <script>
@@ -43,24 +45,17 @@ const navItems = [
     });
 </script>
 
-<header class="pr-24 mb-10 md:mb-0 md:w-1/3 md:min-w-1/3 md:sticky md:top-0">
-    <h1 class="text-xl font-bold text-stone-700"><a href="/">Trevor Michael C.</a></h1>
+<header class="pr-24 mb-8 md:mb-0 md:w-1/3 md:min-w-1/3 md:sticky md:top-0">
+    <h1 class="text-xl text-nowrap font-bold text-stone-700"><a href="/">Trevor Michael C.</a></h1>
     <p>Developer, Designer</p>
-    <p>Something else about me, blah blah blah lorem okasdj jasnd nbjsnd jdjb bjasd</p>
+    <p class:list={[requireInfo ? "" : "hidden md:block"]}>Something else about me, blah blah blah lorem okasdj jasnd nbjsnd jdjb bjasd</p>
     <ul class="mt-8 font-light hidden md:block" role="list">
         {navItems.map((item) => (
-            <a class:list={["toc-link text-stone-700 text-md", current === item.path ? "" : ""]} href={`#${item.path}`}>
-                <li class="transition-all font-normal list-none py-1.5 my-1 hover:font-bold rounded-lg items-center">
+            <a class:list={["toc-link block group text-stone-700 text-md", current === item.path ? "" : ""]} href={`#${item.path}`}>
+                <li class="transition-all inline-block text-nowrap font-normal group-[.active]:font-bold group-[.active]:shadow-xl group-[.active]:pl-4 pr-4 list-none py-1.5 my-1 hover:font-bold rounded-lg items-center">
                     {item.name}
                 </li>
             </a>
         ))}
     </ul>
 </header>
-
-<style>
-    .active > li {
-        transform: translateX(8px);
-        font-weight: bold;
-    }
-</style>

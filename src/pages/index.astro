@@ -3,9 +3,11 @@ import '@fontsource/inter';
 import Layout from '../layouts/Layout.astro';
 import Projects from '../layouts/Projects.astro';
 import Section from '../layouts/Section.astro';
+import ScrollRestoration from '../layouts/ScrollRestoration.astro';
 ---
 
-<Layout title="TMC">
+<Layout title="TMC" requireInfo={true}>
+	<ScrollRestoration/>
 	<Section id="about" title="About">
 		<p>Lorem ipsum odor amet, consectetuer adipiscing elit. Quisque ac fames urna justo ultricies nunc. Egestas ultricies pulvinar donec porta porta luctus efficitur viverra fames. Fusce quis faucibus, rhoncus mauris arcu fringilla lacinia id. Mollis euismod sit pulvinar ridiculus commodo vel ullamcorper enim neque. Etiam suscipit accumsan condimentum scelerisque sed velit quisque primis. Mus dignissim tincidunt potenti commodo, hendrerit blandit sapien.
 	

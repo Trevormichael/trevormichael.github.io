@@ -1,0 +1,88 @@
+<script>
+	let isBack = false;
+	let scrollRestoration = false;
+    let paths = ["/"]
+	const getScrollElement = () => document.querySelector("body div");
+
+	document.addEventListener("astro:before-preparation", ({ from, to, direction }) => {
+        isBack = direction === "back";
+        console.log(`Navigation direction: ${direction}`);
+    });
+
+	document.addEventListener("astro:before-swap", () => {
+		const scrollElement = getScrollElement();
+		if (!scrollElement) 
+			return;
+
+		const currentPath = window.location.pathname;
+        if (!paths.includes(currentPath))
+            return;
+
+		const currentScroll = scrollElement.scrollTop;
+		//console.log(`Before swap - Current path: ${currentPath}, Scroll position: ${currentScroll}`);
+
+		if (!isBack) {
+			const scrollPositions = JSON.parse(
+				sessionStorage.getItem("scrollPositions") || "{}",
+			);
+			scrollPositions[currentPath] = currentScroll;
+			sessionStorage.setItem(
+				"scrollPositions",
+				JSON.stringify(scrollPositions),
+			);
+			//console.log(`Saved scroll position for ${currentPath}: ${currentScroll}`,);
+		}
+	});
+
+	document.addEventListener("astro:after-swap", () => {
+		scrollRestoration = true;
+		const scrollElement = getScrollElement();
+		if (!scrollElement) 
+			return;
+
+		const newPath = window.location.pathname;
+		if (!paths.includes(newPath))
+            return;
+
+		const scrollPositions = JSON.parse(
+			sessionStorage.getItem("scrollPositions") || "{}",
+		);
+		const savedScrollPosition = scrollPositions[newPath];
+
+		if (savedScrollPosition !== undefined) {
+			// Delay scroll restoration
+			setTimeout(() => {
+				scrollElement.scrollTo({top: savedScrollPosition, behavior: 'smooth'});
+				console.log(`Scrolled to position: ${savedScrollPosition}`);
+				scrollRestoration = false;
+			}, 200);
+			if (!isBack) {
+				delete scrollPositions[newPath];
+				sessionStorage.setItem(
+					"scrollPositions",
+					JSON.stringify(scrollPositions),
+				);
+				//console.log(`Cleared saved scroll position for ${newPath}`);
+			}
+		} else {
+			//console.log(`No saved scroll position found for ${newPath}`);
+			scrollRestoration = false;
+		}
+	});
+
+	// Prevent scroll events during transition
+	window.addEventListener(
+		"scroll",
+		(e) => {
+			const scrollElement = getScrollElement();
+			if (!scrollElement) 
+				return;
+			
+			if (scrollRestoration) {
+				e.preventDefault();
+				scrollElement.scrollTo(0, 0);
+			}
+		},
+		{ passive: false },
+	);
+</script>

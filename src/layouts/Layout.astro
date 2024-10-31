@@ -3,33 +3,29 @@ import "@fontsource-variable/inter";
 import { ViewTransitions } from "astro:transitions";
 import Nav from "./Nav.astro";
 
-interface Props {
-	title: string;
-}
-
-const { title } = Astro.props;
+const { title, requireInfo = false } = Astro.props;
 ---
 
 <script>
-	const noise = document.querySelector('.noise') as HTMLElement;
+	const noise = document.querySelector(".noise") as HTMLElement;
 
-	document.addEventListener('mousemove', (e) => {
+	document.addEventListener("mousemove", (e) => {
 		const x = 1 - e.clientX / window.innerWidth;
 		const y = 1 - e.clientY / window.innerHeight;
-		
-		const max = 70
-		const min = 30
-		const xPercentage = min + (x * (max - min)); // Maps 0-1 to 40%-60%
-		const yPercentage = min + (y * (max - min)); // Maps 0-1 to 40%-60%
-		
-		noise.style.setProperty('--gradient-x', `${xPercentage}%`);
-		noise.style.setProperty('--gradient-y', `${yPercentage}%`);
 
-		const rMax = 220
-		const rMin = 200
-		const rot = rMin + (y * (rMax - rMin));
+		const max = 70;
+		const min = 30;
+		const xPercentage = min + x * (max - min); // Maps 0-1 to 40%-60%
+		const yPercentage = min + y * (max - min); // Maps 0-1 to 40%-60%
 
-		noise.style.setProperty('--gradient-rot', `${rot}deg`)
+		noise.style.setProperty("--gradient-x", `${xPercentage}%`);
+		noise.style.setProperty("--gradient-y", `${yPercentage}%`);
+
+		const rMax = 220;
+		const rMin = 200;
+		const rot = rMin + y * (rMax - rMin);
+
+		noise.style.setProperty("--gradient-rot", `${rot}deg`);
 	});
 </script>
 
@@ -44,8 +40,10 @@ const { title } = Astro.props;
 		<ViewTransitions />
 	</head>
 	<body class="h-screen p-[16px]">
-		<div class="text-stone-700 py-6 px-10 top-0 h-[calc(100vh-2rem)] overflow-x-auto scroll-pt-4 md:flex md:justify-between md:gap-4">
-			<Nav />
+		<div
+			class="text-stone-700 py-6 px-10 top-0 h-[calc(100vh-2rem)] overflow-x-auto scroll-pt-4 md:flex md:justify-between md:gap-4"
+		>
+			<Nav requireInfo={requireInfo} />
 			<main class="mr-4 pb-10 md:w-2/3">
 				<slot />
 			</main>
@@ -62,11 +60,15 @@ const { title } = Astro.props;
 			left: 16px;
 			background: linear-gradient(
 					var(--gradient-rot),
-					rgb(250, 242, 230),
+					rgb(244, 234, 218),
 					transparent
 				),
 				linear-gradient(120deg, rgb(203, 210, 255), transparent),
-				radial-gradient(at var(--gradient-x) var(--gradient-y), rgb(246, 255, 233), rgb(200, 200, 255));
+				radial-gradient(
+					at var(--gradient-x) var(--gradient-y),
+					rgb(232, 243, 216),
+					rgb(215, 215, 239)
+				);
 			width: calc(100vw - 32px);
 			height: calc(100vh - 32px);
 			background-size: cover;
@@ -75,7 +77,7 @@ const { title } = Astro.props;
 			border-radius: 8px;
 			z-index: -1;
 			--gradient-x: 50%;
-  			--gradient-y: 50%;
+			--gradient-y: 50%;
 			--gradient-rot: 200deg;
 		}
 	</style>
