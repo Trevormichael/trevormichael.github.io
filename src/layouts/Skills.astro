@@ -1,0 +1,42 @@
+---
+const primary = ['Kotlin', 'Android', 'Jetpack Compose']
+const secondary = ['SwiftUI', 'SQL', 'Svelte', 'Kotlin Multiplatform']
+const other = ['Java', 'Flutter', 'SQLite', 'RxJava', 'GRDB', 'SQLDelight', 'Room', 'React', 'React Native']
+const other2 = ['C#', 'Unity', 'GDScript', 'Godot', 'Javascript', 'Astro']
+---
+<ul class="inline-flex flex-wrap gap-2 mb-3" aria-label="Primary Skills">
+{
+    primary.map(p => (
+        <li class="transition-all bg-emerald-600 text-emerald-50 shadow-md hover:shadow-xl hover:translate-y-px text-nowrap font-mono text-lg py-1 px-4 rounded-full">
+            {p}
+        </li>
+    ))
+}
+</ul>
+<ul class="inline-flex flex-wrap gap-2 mb-3" aria-label="Secondary Skills">
+{
+    secondary.map(p => (
+        <li class="transition-all bg-teal-600 text-teal-50 shadow-md hover:shadow-xl hover:translate-y-px text-nowrap font-mono text-md py-1 px-4 rounded-full">
+            {p}
+        </li>
+    ))
+}
+</ul>
+<ul class="inline-flex flex-wrap gap-2 mb-3" aria-label="Other Skills">
+{
+    other.map(p => (
+        <li class="transition-all bg-cyan-700 text-cyan-50 shadow-md hover:shadow-xl hover:translate-y-px text-nowrap font-mono text-sm py-1 px-4 rounded-full">
+            {p}
+        </li>
+    ))
+}
+</ul>
+<ul class="inline-flex flex-wrap gap-2" aria-label="More Skills">
+    {
+        other2.map(p => (
+            <li class="transition-all bg-sky-700 text-sky-50 shadow-sm hover:shadow-xl hover:translate-y-px text-nowrap font-mono text-sm py-1 px-4 rounded-full">
+                {p}
+            </li>
+        ))
+    }
+    </ul>
