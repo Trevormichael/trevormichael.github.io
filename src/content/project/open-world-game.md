@@ -1,6 +1,7 @@
 ---
 title: 'BIA'
-category: 'Open World Game'
+category: 'PC Game'
 tech: ['Unity', 'C#', 'HLSL Shaders']
 desc: 'Endless, procedurally generated, destructible voxel terrain.'
 ---
+Work in progress
